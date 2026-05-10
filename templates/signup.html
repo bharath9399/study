@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block auth_content %}
+<div style="max-width: 450px; margin: 4rem auto;">
+    <div class="glass-card">
+        <h1 style="margin-bottom: 0.5rem; text-align: center; font-weight: 800;">Create Account</h1>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Join the collaboration community</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div style="margin-bottom: 1.5rem; position: relative;" {% if "password" in field.name %}class="password-toggle"{% endif %}>
+                    <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">{{ field.label }}</label>
+                    {{ field }}
+                    {% if "password" in field.name %}
+                        <button type="button" class="toggle-btn" onclick="togglePassword('{{ field.auto_id }}')">👁️</button>
+                    {% endif %}
+                    {% if field.help_text %}
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="font-size: 0.75rem; color: #ef4444; margin-top: 0.25rem;">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 1rem;">Create Account</button>
+        </form>
+        
+        <p style="margin-top: 2rem; text-align: center; color: var(--text-muted);">
+            Already have an account? <a href="{% url 'login' %}" style="color: var(--secondary); font-weight: 600; text-decoration: none;">Login here</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        if (input.type === "password") {
+            input.type = "text";
+        } else {
+            input.type = "password";
+        }
+    }
+</script>
+{% endblock %}

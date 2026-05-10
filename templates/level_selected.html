@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 600px; margin: 4rem auto; text-align: center;">
+    <div class="glass-card">
+        <h1 style="margin-bottom: 1rem;">Level Set: {{ level|title }}</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">You are now marked as a <strong>{{ level }}</strong> in <strong>{{ subject.name }}</strong>.</p>
+        
+        {% if level == 'beginner' %}
+            <p style="margin-bottom: 2rem;">Need help? Connect with someone more experienced!</p>
+            <a href="{% url 'connect_public' subject.id %}" class="btn btn-primary" style="padding: 1rem 2rem;">Connect Public</a>
+        {% else %}
+            <p style="margin-bottom: 2rem;">Wait for beginners to connect with you or help others!</p>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

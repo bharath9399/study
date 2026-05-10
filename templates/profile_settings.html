@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="glass-card" style="max-width: 600px; margin: 2rem auto;">
+    <h2 style="margin-bottom: 2rem;">Profile Settings</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Current Profile Picture</label>
+            {% if user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" alt="Profile" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+            {% else %}
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: var(--bg-card); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                    <span style="font-size: 2rem;">👤</span>
+                </div>
+            {% endif %}
+        </div>
+        <div style="margin-bottom: 2rem;">
+            <label for="id_profile_picture" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Upload New Picture</label>
+            {{ form.profile_picture }}
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

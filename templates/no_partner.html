@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 600px; margin: 4rem auto; text-align: center;">
+    <div class="glass-card">
+        <h1 style="margin-bottom: 1rem;">No Partners Found</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Currently, there are no available Intermediate or Pro users for <strong>{{ subject.name }}</strong>. Please try again later or select another subject.</p>
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

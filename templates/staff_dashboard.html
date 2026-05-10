@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="glass-card" style="max-width: 800px; margin: 2rem auto; padding: 2rem;">
+    <h2 style="margin-bottom: 1.5rem;">Staff Dashboard</h2>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+        <div class="glass-card" style="padding: 1rem; text-align: center;">
+            <h3>Total Students</h3>
+            <p style="font-size: 2rem; font-weight: 600; margin-top: 0.5rem;">{{ total_students }}</p>
+        </div>
+        <div class="glass-card" style="padding: 1rem; text-align: center;">
+            <h3>Active Chats</h3>
+            <p style="font-size: 2rem; font-weight: 600; margin-top: 0.5rem;">{{ active_chats }}</p>
+        </div>
+        <div class="glass-card" style="padding: 1rem; text-align: center;">
+            <h3>Notifications</h3>
+            <p style="font-size: 2rem; font-weight: 600; margin-top: 0.5rem;">{{ notifications }}</p>
+        </div>
+    </div>
+    <h3 style="margin-bottom: 1rem;">Recent Collaboration Requests</h3>
+    <ul style="list-style: none; padding: 0;">
+        {% for req in recent_requests %}
+        <li class="glass-card" style="margin-bottom: 0.5rem; padding: 0.75rem 1rem;">
+            <strong>{{ req.user.username }}</strong> wants to study <strong>{{ req.subject.name }}</strong> as a <strong>{{ req.level }}</strong>
+        </li>
+        {% empty %}
+        <li>No recent requests.</li>
+        {% endfor %}
+    </ul>
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">All Subjects</h3>
+    <div class="grid">
+        {% for subject in subjects %}
+        <div class="glass-card" style="padding: 1rem; text-align: center;">
+            <h4>{{ subject.name }}</h4>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

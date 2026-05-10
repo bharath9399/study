@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 600px; margin: 4rem auto; text-align: center;">
+    <div class="card" style="padding: 3rem;">
+        <h2 style="font-size: 1.5rem; color: var(--text-muted); font-weight: 500; margin-bottom: 2rem;">How would you describe your level in this subject?</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div style="display: grid; gap: 1rem;">
+                <button type="submit" name="level" value="beginner" class="btn-primary" style="padding: 1.25rem; font-size: 1.1rem; background: #6366f1;">Beginner</button>
+                <button type="submit" name="level" value="intermediate" class="btn-primary" style="padding: 1.25rem; font-size: 1.1rem; background: #8b5cf6;">Intermediate</button>
+                <button type="submit" name="level" value="pro" class="btn-primary" style="padding: 1.25rem; font-size: 1.1rem; background: #d946ef;">Pro</button>
+            </div>
+        </form>
+
+        <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+            <a href="{% url 'subject_detail' active_subject.id %}" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600;">← Back to Subject Details</a>
+            <span style="margin: 0 1rem; color: var(--border-color);">|</span>
+            <a href="{% url 'dashboard' %}" style="color: var(--primary); text-decoration: none; font-size: 0.9rem; font-weight: 700;">View Study Partner List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

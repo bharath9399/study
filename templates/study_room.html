@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h1>Studying {{ connection.subject.name }}</h1>
+        <p style="color: var(--text-muted);">Partner: <strong>{{ opponent.username }}</strong> ({{ opponent.profile.role }})</p>
+    </div>
+    <a href="{% url 'dashboard' %}" class="btn" style="background: var(--glass); border: 1px solid var(--glass-border); color: white;">Leave Room</a>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem; height: calc(100vh - 250px);">
+    <!-- Chat Section -->
+    <div class="glass-card chat-container" style="padding: 1rem;">
+        <div class="messages" id="chat-box">
+            {% for msg in messages %}
+            <div class="message {% if msg.sender == user %}sent{% else %}received{% endif %}">
+                <div style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.2rem;">{{ msg.sender.username }}</div>
+                <div>{{ msg.content }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <form method="post" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+            {% csrf_token %}
+            <input type="text" name="message" placeholder="Type a message..." required style="margin-bottom: 0;">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="glass-card" style="padding: 1rem; display: flex; flex-direction: column;">
+        <h3 style="margin-bottom: 1rem;">Collaborative Notes</h3>
+        <form method="post" style="flex: 1; display: flex; flex-direction: column;">
+            {% csrf_token %}
+            <textarea name="note" class="notes-area" placeholder="Write your notes here together...">{{ note.content }}</textarea>
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem; align-self: flex-end;">Save Notes</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Auto scroll chat to bottom
+    const chatBox = document.getElementById('chat-box');
+    chatBox.scrollTop = chatBox.scrollHeight;
+</script>
+{% endblock %}

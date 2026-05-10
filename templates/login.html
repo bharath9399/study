@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block auth_content %}
+<div style="max-width: 450px; margin: 4rem auto;">
+    <div class="glass-card">
+        <h1 style="margin-bottom: 0.5rem; text-align: center; font-weight: 800;">Welcome Back</h1>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Sign in to continue your journey</p>
+        <form method="post" id="loginForm">
+            {% csrf_token %}
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">Username</label>
+                {{ form.username }}
+            </div>
+            <div style="margin-bottom: 1.5rem; position: relative;" class="password-toggle">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">Password</label>
+                {{ form.password }}
+                <button type="button" class="toggle-btn" onclick="togglePassword('id_password')">👁️</button>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 1rem;">Sign In</button>
+        </form>
+        <p style="margin-top: 2rem; text-align: center; color: var(--text-muted);">New here? <a href="{% url 'signup' %}" style="color: var(--secondary); font-weight: 600; text-decoration: none;">Create an account</a></p>
+    </div>
+</div>
+<script>
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        if (input.type === "password") { input.type = "text"; } else { input.type = "password"; }
+    }
+</script>
+{% endblock %}
